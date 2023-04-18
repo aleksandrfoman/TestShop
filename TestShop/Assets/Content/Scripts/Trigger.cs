@@ -6,6 +6,9 @@ public class Trigger : MonoBehaviour
     [HideInInspector]
     public UnityEvent<Player> OnEnterTrigger,OnExitTrigger;
     private Player curPlayer;
+    [SerializeField]
+    private GameObject areaZoneParticle;
+
     private void OnTriggerEnter(Collider other)
     {
         var player = other.GetComponent<Player>();
@@ -14,6 +17,7 @@ public class Trigger : MonoBehaviour
             curPlayer = player;
             OnEnterTrigger.Invoke(curPlayer);
         }
+        areaZoneParticle.gameObject.SetActive(false);
     }
 
     private void OnTriggerExit(Collider other)
@@ -24,5 +28,6 @@ public class Trigger : MonoBehaviour
             OnExitTrigger.Invoke(curPlayer);
             curPlayer = null;
         }
+        areaZoneParticle.gameObject.SetActive(true);
     }
 }
